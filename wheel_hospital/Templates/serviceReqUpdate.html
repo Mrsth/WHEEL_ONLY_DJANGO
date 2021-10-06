@@ -1,0 +1,80 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" type="text/css" href="{% static '/css/bikeRegistration.css' %}"> -->
+    <title>Status Request Update</title>
+  </head>
+  <body>
+
+    <!------------------------------------------------------- NAVBAR STARTS HERE ------------------------------------------------------------------------->
+    {% include 'baseNavbar.html' %}
+      <!------------------------------------------------------- NAVBAR ENDS HERE -------------------------------------------------------------------------->
+
+      <!------------------------------------------------------- BIKE REGISTRATION FORM STARTS HERE -------------------------------------------------------------------------->
+      <div class="container" style="width: 50%;">
+
+        <center>
+            <h1>UPDATING BIKE SERVICE REQUEST</h1>
+        </center> 
+        
+        <form method="POST" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            <p>User ID: {{pk}}</p>
+            {% for i in reqFilledForm %}
+                <p>{{i | as_crispy_field}}</p>
+            {% endfor %}
+            <!-- {{reqFilledForm.serviceUser | as_crispy_field}}<br>
+            {{reqFilledForm.serviceCompany | as_crispy_field}}<br>
+            {{reqFilledForm.serviceModel | as_crispy_field}}<br>
+            {{reqFilledForm.serviceNumber | as_crispy_field}}<br>
+            {{reqFilledForm.serviceColor | as_crispy_field}}<br>
+            {{reqFilledForm.pickup | as_crispy_field}}<br>
+            {{reqFilledForm.delivery | as_crispy_field}}<br>
+            {{reqFilledForm.kmcovered | as_crispy_field}}<br>
+            {{reqFilledForm.contact | as_crispy_field}}<br>
+            {{reqFilledForm.problem | as_crispy_field}}<br>
+            {{reqFilledForm.serviceDate | as_crispy_field}}<br>
+            {{reqFilledForm.serviceTime | as_crispy_field}}<br>
+            {{reqFilledForm.deliveryTime | as_crispy_field}}<br> -->
+            
+            <input type="submit" name="submit" value="Update" class="btn btn-primary">
+        </form>
+             
+      </div>
+      <!------------------------------------------------------- BIKE REGISTRATION FORM ENDS HERE -------------------------------------------------------------------------->
+
+     
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>
+    
+
+
+
+
+
+
+
+
+
+
+
+
