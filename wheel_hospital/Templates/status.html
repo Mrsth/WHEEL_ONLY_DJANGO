@@ -32,29 +32,29 @@
             {{i | as_crispy_field}}
             <br>
           {% endfor %}        
+
           <input type="submit" name="submit" value="submit" class="btn btn-primary">
         </form>  
       {% endif %}  
+
+
   
     <center style="margin-top: 5%;">
       <h1>STATUS OF BIKE IN SERVICING CENTER</h1>
     </center>      
-      <table class="table" style="margin-top: 2%; width:100%; table-layout: fixed;">
+      <table class="table-responsive-md" style="margin-top: 2%; width:100%; table-layout: fixed;">
           <tr>
-            <th scope="col" style="text-align: center;" >Service User</th>
-            <th scope="col" style="text-align: center;" >Bike Color</th>
-            <th scope="col" style="text-align: center;" >Bike Number</th>
-            <th scope="col" style="text-align: center;" >Bike model</th>
-            <th scope="col" style="text-align: center;" >Bike Company</th>
-            <th scope="col" style="text-align: center;" >Pickup Location</th>
-            <th scope="col" style="text-align: center;" >Delivery Location</th>
-            <th scope="col" style="text-align: center;" >Distance Covered(km)</th>
-            <th scope="col" style="text-align: center;" >Contact Number</th>
-            <th scope="col" style="text-align: center;" >Problem</th>
-            <th scope="col" style="text-align: center;" >Status</th>
-            <th scope="col" style="text-align: center;" >Service Date</th>
-            <th scope="col" style="text-align: center;" >Pickup Time</th>
-            <th scope="col" style="text-align: center;" >Delivery Time </th>
+            <th scope="col" style="text-align: center; word-break:break-all;" >Service User</th>
+            <th scope="col" style="text-align: center; word-break:break-all;" >Bike Color</th>
+            <th scope="col" style="text-align: center; word-break:break-all;" >Bike Number</th>
+            <th scope="col" style="text-align: center; word-break:break-all;" >Bike model</th>
+            <th scope="col" style="text-align: center; word-break:break-all;" >Bike Company</th>
+            <th scope="col" style="text-align: center; word-break:break-all;" >Pickup Location</th>
+            <th scope="col" style="text-align: center; word-break:break-all;" >Delivery Location</th>
+            <th scope="col" style="text-align: center; word-break:break-all;" >Distance Covered(km)</th>
+            <th scope="col" style="text-align: center; word-break:break-all;" >Contact Number</th>
+            <th scope="col" style="text-align: center; word-break:break-all;" >Problem</th>
+            <th scope="col" style="text-align: center; word-break:break-all;" >Status</th>
           </tr>
          
           {% for i in stat %}
@@ -70,9 +70,7 @@
                 <td style="word-break:break-all;">{{i.contact}}</td>
                 <td style="word-break:break-all;">{{i.problem}}</td>
                 <td style="word-break:break-all;"><b>{{i.completed}}</b></td>
-                <td style="word-break:break-all;">{{i.serviceDate}}</td>
-                <td style="word-break:break-all;">{{i.serviceTime}}</td>
-                <td style="word-break:break-all;">{{i.deliveryTime}}</td>
+            
 
                 
                 {% if i.completed != "On going" %}

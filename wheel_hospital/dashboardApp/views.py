@@ -19,7 +19,8 @@ def dashboardView(request):
 def bikeRegisterForm(request):
     if request.method == "POST":
         regModel = bikeDisplay()
-        regModel.bikeUser = request.POST.get('username')
+        # regModel.bikeUser = request.POST.get('username')
+        regModel.bikeUser = request.user
         regModel.bikeModel = request.POST.get('model')
         regModel.bikeCompany = request.POST.get('company')
         regModel.bikeColor = request.POST.get('color')
@@ -74,15 +75,20 @@ def deleteBikeInfo(request, pk):
 
 @login_required(login_url='login')
 def bikeStatus(request, name):
+    # import pdb
+    # pdb.set_trace()
     normalServiceRequestForm = bikeReqUpdate()
     stat = bikeServiceRequestModel.objects.filter(serviceUser=request.user)
     forCountingRegisteredBikes = bikeDisplay.objects.filter(bikeUser=request.user)
-    print("Count = ", len(forCountingRegisteredBikes))
+    print("Count = ", len(forCountingRegisteredBikes), request.user)
+
+    # print("TEST = ",len(forCountingRegisteredBikes)==0)
+
 
     if request.method == "POST":
         normalServiceRequestForm = bikeReqUpdate(request.POST)
         if normalServiceRequestForm.is_valid():
-            normalServiceRequestForm.save()
+            normalServiceRequestForm.save(request = request.user)
             normalServiceRequestForm = bikeReqUpdate()
         # else:
         #      return render(request, 'errorPage.html',{})   
