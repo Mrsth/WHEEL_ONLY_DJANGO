@@ -27,11 +27,12 @@
             <center>
                 <h1>BIKE REGISTRATION FORM</h1>
             </center>  
+            <br>
             <form method="POST" action="" class="container" enctype="multipart/form-data">
                   {% csrf_token %}
                   <div class="form-group">
-                      <label for="exampleInputUsername">Username</label>
-                      <input required name="username" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                      <label for="exampleInputUsername"> <b>Username : {{request.user}}</b></label>
+                      <input required name="username" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" hidden>
                   </div>
                   <br>
                   <div class="form-group">

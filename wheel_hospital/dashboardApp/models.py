@@ -2,7 +2,7 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from datetime import datetime
 from django.contrib.auth.models import User
-from django.db.models.base import Model
+from django.utils import timezone
 
 # Create your models here.
 
@@ -51,8 +51,8 @@ class bikeServiceRequestModel(models.Model):
     contact = models.CharField(max_length=10)
     problem = models.TextField()
     completed = models.CharField(max_length=100, default="Not Completed")
-    serviceDate = models.DateField(validators=[validate_date]) 
-    serviceTime = models.TimeField()
+    serviceDate = models.DateField(validators=[validate_date], default=timezone.now) 
+    serviceTime = models.TimeField(auto_now=True)
     deliveryTime = models.TimeField()
 
     def __str__(self) -> str:
