@@ -29,6 +29,11 @@
             </center>  
             <br>
             <form method="POST" action="" class="container" enctype="multipart/form-data">
+              {% csrf_token %}
+              {{fm | crispy }}<br>
+              <button type="submit" class="btn btn-primary">Register</button> 
+            </form>
+            <!-- <form method="POST" action="" class="container" enctype="multipart/form-data">
                   {% csrf_token %}
                   <div class="form-group">
                       <label for="exampleInputUsername"> <b>Username : {{request.user}}</b></label>
@@ -62,7 +67,7 @@
       
                   <br>
                   <button type="submit" class="btn btn-primary">Register</button>      
-              </form>
+              </form> -->
 
              
         </div>

@@ -6,6 +6,7 @@ from .models import bikeDisplay, bikeServiceRequestModel
 from django.contrib.auth.models import User
 
 class bikeRegForm(ModelForm):
+    # x = bikeDisplay.objects.all()
     class Meta:
         model = bikeDisplay
         fields = '__all__'
