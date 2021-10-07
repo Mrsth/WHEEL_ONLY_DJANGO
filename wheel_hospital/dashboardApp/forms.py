@@ -10,4 +10,9 @@ class bikeRegForm(ModelForm):
 class bikeReqUpdate(ModelForm):
     class Meta:
         model = bikeServiceRequestModel
-        fields = "__all__"
+        fields = [
+                    "serviceUser", "serviceCompany", "serviceModel",
+                    "serviceNumber", "serviceColor", "pickup", "delivery",
+                    "kmcovered", "contact", "problem", "serviceDate", "serviceTime",
+                    "deliveryTime"
+                 ]
