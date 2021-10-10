@@ -6,12 +6,17 @@ from .models import bikeDisplay, bikeServiceRequestModel
 from django.contrib.auth.models import User
 
 class bikeRegForm(ModelForm):
-    # x = bikeDisplay.objects.all()
+    bikeUser = forms.CharField(label="Bike user", widget=forms.TextInput(attrs={
+        "value" : "user1",
+        # "hidden": True
+        "readonly":True
+    }))
+
     class Meta:
         model = bikeDisplay
         fields = '__all__'
-  
-
+        
+        
 class bikeReqUpdate(ModelForm):
     
     class Meta:
