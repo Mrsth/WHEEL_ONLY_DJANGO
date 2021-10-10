@@ -17,35 +17,21 @@ def dashboardView(request):
 
 @login_required(login_url='login')
 def bikeRegisterForm(request):
+    fm = bikeRegForm()
+    print("ok = ", request.POST, request.method)
+
     if request.method == "POST":
-        regModel = bikeDisplay()
-        # regModel.bikeUser = request.POST.get('username')
-        regModel.bikeUser = request.user
-        regModel.bikeModel = request.POST.get('model')
-        regModel.bikeCompany = request.POST.get('company')
-        regModel.bikeColor = request.POST.get('color')
-        regModel.bikeNumber =  request.POST.get('number')
-        if len(request.FILES) != 0:
-            regModel.bikeImage = request.FILES['bikeImage']
-            print("IMAGES = ", request.FILES['bikeImage'])
-        regModel.save()
+        fm = bikeRegForm(request.POST, request.FILES)
+        if fm.is_valid():
+            fm.save()
+            return redirect('dash')
 
-        return redirect('dash')
+    context = {
+        "fm" : fm
+    }
 
+    
 
-        # username = request.POST.get('username')
-        # model = request.POST.get('model')
-        # company = request.POST.get('company')
-        # color = request.POST.get('color')
-        # number = request.POST.get('number')
-        # bikeImage = request.POST.get('bikeImage')
-
-        # result = bikeDisplay(bikeUser=username, bikeModel=model, bikeCompany=company, bikeColor=color, bikeNumber=number, bikeImage=bikeImage)
-        # result.save()       
-    form = bikeRegForm()
-    context={
-        'form': form
-    }    
     return render(request, 'bikeRegistration.html', context)
 
 @login_required(login_url='login')
@@ -75,20 +61,15 @@ def deleteBikeInfo(request, pk):
 
 @login_required(login_url='login')
 def bikeStatus(request, name):
-    # import pdb
-    # pdb.set_trace()
     normalServiceRequestForm = bikeReqUpdate()
     stat = bikeServiceRequestModel.objects.filter(serviceUser=request.user)
     forCountingRegisteredBikes = bikeDisplay.objects.filter(bikeUser=request.user)
-    print("Count = ", len(forCountingRegisteredBikes), request.user)
-
-    # print("TEST = ",len(forCountingRegisteredBikes)==0)
-
+    print("Count = ", len(forCountingRegisteredBikes))
 
     if request.method == "POST":
         normalServiceRequestForm = bikeReqUpdate(request.POST)
         if normalServiceRequestForm.is_valid():
-            normalServiceRequestForm.save(request = request.user)
+            normalServiceRequestForm.save()
             normalServiceRequestForm = bikeReqUpdate()
         # else:
         #      return render(request, 'errorPage.html',{})   
