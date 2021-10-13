@@ -30,7 +30,10 @@
             <br>
             <form method="POST" action="" class="container" enctype="multipart/form-data">
               {% csrf_token %}
-              {{fm | crispy }}<br>
+              {% for i in fm %}
+                {{i | as_crispy_field}}<br>
+              {% endfor %}
+              <!-- {{fm | crispy }}<br> -->
               <button type="submit" class="btn btn-primary">Register</button> 
             </form>
             <!-- <form method="POST" action="" class="container" enctype="multipart/form-data">

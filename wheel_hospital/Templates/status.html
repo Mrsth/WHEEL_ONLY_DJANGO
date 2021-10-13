@@ -19,75 +19,93 @@
       <!------------------------------------------------------- NAVBAR ENDS HERE -------------------------------------------------------------------------->
 
       <!------------------------------------------------------- BIKE REGISTRATION FORM STARTS HERE -------------------------------------------------------------------------->
-      <div class="row">
-
-      {% if count >= 1 %}
-        <center>
-          <h1>SERVICE REQUEST FORM</h1>
-        </center> 
-
-        <form method="POST" action="" enctype="multipart/form-data" style="width: 50%; margin-left: 25%;">
-          {% csrf_token %}
-          {% for i in normalServiceRequestForm %}
-            {{i | as_crispy_field}}
-            <br>
-          {% endfor %}        
-
-          <input type="submit" name="submit" value="submit" class="btn btn-primary">
-        </form>  
-      {% endif %}  
-
-
-  
-    <center style="margin-top: 5%;">
+      <div class="row">  
+    <center style="margin-top: 2%;">
       <h1>STATUS OF BIKE IN SERVICING CENTER</h1>
-    </center>      
-      <table class="table-responsive-md" style="margin-top: 2%; width:100%; table-layout: fixed;">
+    </center>   
+      <h2>Table View</h2>   
+      <table class="table table-bordered" style="margin-top: 2%; margin-bottom: 5%;width:100%; table-layout: fixed;">
           <tr>
-            <th scope="col" style="text-align: center; word-break:break-all;" >Service User</th>
-            <th scope="col" style="text-align: center; word-break:break-all;" >Bike Color</th>
-            <th scope="col" style="text-align: center; word-break:break-all;" >Bike Number</th>
-            <th scope="col" style="text-align: center; word-break:break-all;" >Bike model</th>
-            <th scope="col" style="text-align: center; word-break:break-all;" >Bike Company</th>
-            <th scope="col" style="text-align: center; word-break:break-all;" >Pickup Location</th>
-            <th scope="col" style="text-align: center; word-break:break-all;" >Delivery Location</th>
-            <th scope="col" style="text-align: center; word-break:break-all;" >Distance Covered(km)</th>
-            <th scope="col" style="text-align: center; word-break:break-all;" >Contact Number</th>
-            <th scope="col" style="text-align: center; word-break:break-all;" >Problem</th>
-            <th scope="col" style="text-align: center; word-break:break-all;" >Status</th>
+            <th scope="col" style="font-size: small; text-align: center; word-break:break-all;" >Service User</th>
+            <th scope="col" style="font-size: small; text-align: center; word-break:break-all;" >Bike Color</th>
+            <th scope="col" style="font-size: small; text-align: center; word-break:break-all;" >Bike Number</th>
+            <th scope="col" style="font-size: small; text-align: center; word-break:break-all;" >Bike model</th>
+            <th scope="col" style="font-size: small; text-align: center; word-break:break-all; width: 10%;" >Bike Company</th>
+            <th scope="col" style="font-size: small; text-align: center; word-break:break-all; width: 10%;">Pickup Location</th>
+            <th scope="col" style="font-size: small; text-align: center; word-break:break-all; width: 10%;" >Delivery Location</th>
+            <th scope="col" style="font-size: small; text-align: center; word-break:break-all; width: 10%;" >Distance Covered(in kilometers)</th>
+            <th scope="col" style="font-size: small; text-align: center; word-break:break-all; width: 10%;" >Contact Number</th>
+            <th scope="col" style="font-size: small; text-align: center; word-break:break-all;" >Problem</th>
+            <th scope="col" style="font-size: small; text-align: center; word-break:break-all;" >Status</th>
           </tr>
          
+        
+          
           {% for i in stat %}
-            <tr>
-                <td style="word-break:break-all;">{{i.serviceUser}}</td>
-                <td style="word-break:break-all;">{{i.serviceColor}}</td>
-                <td style="word-break:break-all;">{{i.serviceNumber}}</td>
-                <td style="word-break:break-all;">{{i.serviceModel}}</td>
-                <td style="word-break:break-all;">{{i.serviceCompany}}</td>
-                <td style="word-break:break-all;">{{i.pickup}}</td>
-                <td style="word-break:break-all;">{{i.delivery}}</td>
-                <td style="word-break:break-all;">{{i.kmcovered}}</td>
-                <td style="word-break:break-all;">{{i.contact}}</td>
-                <td style="word-break:break-all;">{{i.problem}}</td>
-                <td style="word-break:break-all;"><b>{{i.completed}}</b></td>
-            
+            <tr>    
+              {% for x,y in num_img %}
+                {% if x == i.serviceNumber %}
+                        <td style="word-break:break-all; font-size: small;">
+                          <center>{{i.serviceUser}}</center>
+                          <img class="card-img-top" src="{{y}}" alt="Card image cap">
+                        </td>
+                        <td style="word-break:break-all; font-size: small;">{{i.serviceColor}}</td>
+                        <td style="word-break:break-all; font-size: small;">{{i.serviceNumber}}</td>
+                        <td style="word-break:break-all; font-size: small;">{{i.serviceModel}}</td>
+                        <td style="word-break:break-all; font-size: small;">{{i.serviceCompany}}</td>
+                        <td style="word-break:break-all; font-size: small;">{{i.pickup}}</td>
+                        <td style="word-break:break-all; font-size: small;">{{i.delivery}}</td>
+                        <td style="word-break:break-all; font-size: small;">{{i.kmcovered}}</td>
+                        <td style="word-break:break-all; font-size: small;">{{i.contact}}</td>
+                        <td style="word-break:break-all; font-size: small;">{{i.problem}}</td>
+                        <td style="word-break:break-all; font-size: small;">{{i.completed}}</td>
+                    
 
-                
-                {% if i.completed != "On going" %}
-                  <td>
-                    <a class="btn btn-primary" type="button" href="/update/{{i.id}}">Update</a>
-                    <hr>
-                    <a class="btn btn-danger" type="button" href="/status/delete/{{i.id}}">Delete</a>
-                  </td>
+                        
+                      {% if i.completed != "On going" %}
+                          <td>
+                            <center>
+                              <a class="btn btn-primary" style="font-size: small; margin-bottom: 5%;" type="button" href="/update/{{i.id}}">Update</a>
+                              <a class="btn btn-danger" style="font-size: small;" type="button" href="/status/delete/{{i.id}}">Delete</a>
+                            </center>
+                          </td>
+                      {% endif %} 
                 {% endif %}
+              {% endfor %}        
                 
-            </tr>              
+            </tr>            
           {% endfor %}
           
       </table>
-      <br>
-      <br>
-      <br>   
+      <hr>
+      <h2 style="margin-top: 2%; margin-bottom: 2%;">Card View</h2>
+      {% for i in stat %}
+          {% for x,y in num_img %}
+            {% if x == i.serviceNumber %}
+              <div class="card" style="width: 20rem; margin-left: 2%; margin-bottom: 2%;">
+                <img class="card-img-top" src="{{y}}" alt="Card image cap">
+                <hr>
+                <div class="card-body">
+                  <h5 class="card-title"><b>Service User: </b>{{i.serviceUser}}</h5>
+                  <p class="card-text"><b>Bike Color:</b> {{i.serviceColor}}</p>
+                  <p class="card-text"><b>Bike Number:</b> {{i.serviceNumber}}</p>
+                  <p class="card-text"><b>Bike Model:</b> {{i.serviceModel}}</p>
+                  <p class="card-text"><b>Bike Company:</b> {{i.serviceCompany}}</p>
+                  <p class="card-text"><b>Pickup Location:</b> {{i.pickup}}</p>
+                  <p class="card-text"><b>Distance in KM:</b> {{i.kmcovered}}</p>
+                  <p class="card-text"><b>Contact Number:</b> {{i.contact}}</p>
+                  <p class="card-text"><b>Servicing Status:</b> {{i.completed}}</p>
+                  <p class="card-text"><b>Problems:</b> {{i.problem}}</p>
+                  <hr>
+                  <center>
+                    <a class="btn btn-primary" style="font-size: small;" type="button" href="/update/{{i.id}}">Update</a>
+                    <a class="btn btn-danger" style="font-size: small;" type="button" href="/status/delete/{{i.id}}">Delete</a>
+                  </center>
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+      {% endfor %}
       </div>
       <!------------------------------------------------------- BIKE REGISTRATION FORM ENDS HERE -------------------------------------------------------------------------->
 

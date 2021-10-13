@@ -5,15 +5,6 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 
 # Create your models here.
-
-class bikeDisplay(models.Model):
-    bikeUser = models.CharField(max_length=50)
-    bikeCompany = models.CharField(max_length=50)
-    bikeModel = models.CharField(max_length=50)
-    bikeNumber = models.CharField(max_length=50)
-    bikeColor = models.CharField(max_length=50)
-    bikeImage = models.ImageField(upload_to='dbImages')
-
 class bikeCompanyModel(models.Model):
     bikeCompanyNames = models.CharField(max_length=50)
 
@@ -25,6 +16,21 @@ class userBikeModel(models.Model):
 
     def __str__(self) -> str:
         return self.bikeModel
+
+class bikeDisplay(models.Model):
+    bikeUser = models.CharField(max_length=50)
+    # bikeCompany = models.CharField(max_length=50)
+    bikeCompany = models.ForeignKey(bikeCompanyModel, on_delete=models.CASCADE)
+    # bikeModel = models.CharField(max_length=50)
+    bikeModel = models.ForeignKey(userBikeModel, on_delete=models.CASCADE)
+    bikeNumber = models.CharField(max_length=50, unique=True)
+    bikeColor = models.CharField(max_length=50)
+    bikeImage = models.ImageField(upload_to='dbImages')
+
+    def __str__(self) -> str:
+        return self.bikeNumber    
+
+
 
 class bikeServiceRequestModel(models.Model):
 

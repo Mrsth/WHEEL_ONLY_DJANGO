@@ -1,24 +1,28 @@
+from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
 
 # IMPORTS FOR DASHBOARD
 from django.contrib.auth.decorators import login_required
-from .models import bikeDisplay, bikeServiceRequestModel
-from .forms import bikeRegForm, bikeReqUpdate
+from .models import bikeCompanyModel, bikeDisplay, bikeServiceRequestModel, userBikeModel
+from .forms import bikeRegForm, bikeReqUpdate, serviceRequestForm
 from django.contrib.auth.forms import PasswordChangeForm
 
 # Create your views here.
 @login_required(login_url='login')
 def dashboardView(request):
     bikes = bikeDisplay.objects.filter(bikeUser=request.user)
+    buttonShowOrNot = list(bikeServiceRequestModel.objects.filter(serviceUser=request.user).values_list('serviceNumber', flat=True))
+    
     context = {
-        'bikes': bikes
+        'bikes': bikes,
+        'flag': buttonShowOrNot
     }
     return render(request, 'dashboard.html',context)
 
 @login_required(login_url='login')
 def bikeRegisterForm(request):
-    fm = bikeRegForm()
-    print("ok = ", request.POST, request.method)
+    fm = bikeRegForm(user=request.user)
 
     if request.method == "POST":
         fm = bikeRegForm(request.POST, request.FILES)
@@ -61,23 +65,27 @@ def deleteBikeInfo(request, pk):
 
 @login_required(login_url='login')
 def bikeStatus(request, name):
-    normalServiceRequestForm = bikeReqUpdate()
     stat = bikeServiceRequestModel.objects.filter(serviceUser=request.user)
     forCountingRegisteredBikes = bikeDisplay.objects.filter(bikeUser=request.user)
-    print("Count = ", len(forCountingRegisteredBikes))
 
-    if request.method == "POST":
-        normalServiceRequestForm = bikeReqUpdate(request.POST)
-        if normalServiceRequestForm.is_valid():
-            normalServiceRequestForm.save()
-            normalServiceRequestForm = bikeReqUpdate()
-        # else:
-        #      return render(request, 'errorPage.html',{})   
+    # bikeNum = [i.serviceNumber for i in stat]
+    # print("ONLY BIKE NUMBER = ", bikeNum)
+
+    num_img = []
+
+    for i in stat:
+        number = list(bikeDisplay.objects.filter(bikeNumber=i.serviceNumber).values_list('bikeNumber', flat=True))
+        img = list(bikeDisplay.objects.filter(bikeNumber=i.serviceNumber).values_list('bikeImage', flat=True))
+        print("NUMBER RELATED IMAGES = ", num_img.append((number[0],"/media/"+img[0])))
+        
+      
+    
+
 
     context={
         'stat':stat,
-        'normalServiceRequestForm':normalServiceRequestForm,
-        'count': len(forCountingRegisteredBikes)
+        'count': len(forCountingRegisteredBikes),
+        'num_img': num_img
     }
     return render(request, 'status.html', context)
 
@@ -88,12 +96,14 @@ def requestDelete(request, pk):
     delRequest = bikeServiceRequestModel.objects.filter(id=pk)
     delRequest.delete()
 
-    stat = bikeServiceRequestModel.objects.filter(serviceUser=request.user)
-    context={
-        'stat':stat
-    }
+    # stat = bikeServiceRequestModel.objects.filter(serviceUser=request.user)
+    # context={
+    #     'stat':stat
+    # }
 
-    return render(request, 'status.html', context)
+    # return render(request, 'status.html', context)
+
+    return redirect('/status/{{request.user}}')
 
 # import pdb
 @login_required(login_url='login')
@@ -132,5 +142,42 @@ def passwordReset(request, name):
         fm = PasswordChangeForm(user=request.user)     
 
     return render(request, 'passwordReset.html', {"fm":fm})
+
+
+@login_required(login_url='login')
+def give_it_to_service(request,pk):
+    onlySelectedBikeRecord = bikeDisplay.objects.get(id=pk)
+
+    values = bikeDisplay.objects.filter(id=pk)
+    print("values = ", values[0].bikeUser)
+
+    initial = {
+                "serviceUser": request.user,
+                "serviceCompany": values[0].bikeCompany,
+                "serviceModel":values[0].bikeModel,
+                "serviceNumber":values[0].bikeNumber,
+                "serviceColor": values[0].bikeColor
+            }
+    fm = serviceRequestForm(initial = initial)
+
+       
+
+    if request.method == 'POST':
+        fm = serviceRequestForm(request.POST, request.FILES)
+        if fm.is_valid():
+            fm.save()
+            fm = serviceRequestForm()
+            return redirect('/status/{{request.user}}')
+        else:
+            return HttpResponse("Not valid form")        
+
+
+    context={
+        "fm":fm, 
+        "onlySelectedBikeRecord":onlySelectedBikeRecord
+    }
+
+
+    return render(request, 'newReqForm.html', context)
 
     
