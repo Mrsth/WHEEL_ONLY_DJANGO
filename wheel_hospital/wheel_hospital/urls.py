@@ -20,7 +20,7 @@ from django.conf.urls.static import static
 
 from loginApp.views import loginPageView, logoutView
 from registerApp.views import registerPageView
-from dashboardApp.views import dashboardView, bikeRegisterForm, updateBikeInfo, deleteBikeInfo, bikeStatus, requestDelete, requestUpdate, passwordReset
+from dashboardApp.views import dashboardView, bikeRegisterForm, updateBikeInfo, deleteBikeInfo, bikeStatus, requestDelete, requestUpdate, passwordReset, give_it_to_service
 from blogApp.views import blogView
 
 urlpatterns = [
@@ -36,7 +36,8 @@ urlpatterns = [
     path('status/<str:name>', bikeStatus, name='status'),
     path('status/delete/<str:pk>', requestDelete, name='delete'),
     path('update/<str:pk>', requestUpdate, name='update'),
-    path('reset/<str:name>', passwordReset, name='reset')
+    path('reset/<str:name>', passwordReset, name='reset'),
+    path('service/<str:pk>', give_it_to_service, name='service')
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
