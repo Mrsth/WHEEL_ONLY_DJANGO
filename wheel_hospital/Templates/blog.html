@@ -16,23 +16,33 @@
       {% include 'baseNavbar.html' %}
       <!------------------------------------------------------- NAVBAR ENDS HERE -------------------------------------------------------------------------->
 
-      <!------------------------------------------------------- BIKE DISPLAY STARTS HERE ------------------------------------------------------------------->
-      <center>
-          <h1>BLOG POSTS</h1>
-      </center>  
-      <div class="row" style="margin: 2%;">
+      <!------------------------------------------------------- BIKE DISPLAY STARTS HERE -------------------------------------------------------------------> 
+      <div class="row" style="margin-top: 5%; margin-bottom: 5%; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); padding: 2%;">
+            <center>
+                <h1>BLOG POSTS</h1>
+            </center> 
             {% for blog in allblogs %}
-                <div class="card" style="width: 30rem; margin-left: 1%; margin-bottom: 2%;">
-                    <img  src="{{blog.blogImage.url}}" id="cardImg" alt="...">   
-                    <div class="card-body">
-                    <h2 class="card-title">{{blog.blogTitle}}</h2>
-                    <p class="card-text">
-                       {{blog.blogContent}}
-                    </p>
-                    <b><i>{{blog.blogOwner}}(Author)</i></b>
-                    <hr>
-                    <a href="{{blog.blogLink}}" class="btn btn-primary">More</a>
-                    </div>
+                <div class="card" style="margin-bottom: 2%;">
+                    <div class="row">
+                      <div class="col">
+                        <img  src="{{blog.blogImage.url}}" id="cardImg" alt="..." style="width: 100%;">  
+                      </div>
+                      <div class="col">
+                        <div class="card-body" style="margin-top: 5%;">
+                          <h2 class="card-title">{{blog.blogTitle}}</h2>
+                          <p class="card-text" style="text-align: justify;">
+                             {{blog.blogContent}}
+                          </p>
+                          <b><i>{{blog.blogOwner}}(Author)</i></b>
+                          <hr>
+                          {% if blog.blogLink != Null %}
+                           <a href="{{blog.blogLink}}" class="btn btn-primary">More</a>
+                          {% else %}
+                            <p></p> 
+                          {% endif %}
+                          </div>
+                      </div>
+                    </div> 
                 </div>
             {% endfor %}
         </div>

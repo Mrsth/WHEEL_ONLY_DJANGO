@@ -21,7 +21,7 @@
       <!------------------------------------------------------- BIKE REGISTRATION FORM STARTS HERE -------------------------------------------------------------------------->
       <div class="container" style="width: 50%;">
 
-        <center>
+        <center style="margin-top: 10%;">
             <h1>UPDATING BIKE SERVICE REQUEST</h1>
         </center> 
         
@@ -31,17 +31,7 @@
             {% for i in reqFilledForm %}
                 <p>{{i | as_crispy_field}}</p>
             {% endfor %}
-            <!-- {{reqFilledForm.serviceUser | as_crispy_field}}<br>
-            {{reqFilledForm.serviceCompany | as_crispy_field}}<br>
-            {{reqFilledForm.serviceModel | as_crispy_field}}<br>
-            {{reqFilledForm.serviceNumber | as_crispy_field}}<br>
-            {{reqFilledForm.serviceColor | as_crispy_field}}<br>
-            {{reqFilledForm.pickup | as_crispy_field}}<br>
-            {{reqFilledForm.delivery | as_crispy_field}}<br>
-            {{reqFilledForm.kmcovered | as_crispy_field}}<br>
-            {{reqFilledForm.contact | as_crispy_field}}<br>
-            {{reqFilledForm.problem | as_crispy_field}}<br>
-             -->
+            
             
             <input type="submit" name="submit" value="Update" class="btn btn-primary">
         </form>

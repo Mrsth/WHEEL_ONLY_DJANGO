@@ -65,4 +65,10 @@ class bikeServiceRequestModel(models.Model):
         return self.serviceNumber
 
     
+class feedBackFormModel(models.Model):
+    userName = models.CharField(max_length=50)
+    userFeedBack = models.TextField()
+    feedBackTime = models.DateField(default=timezone.now)
 
+    def __str__(self) -> str:
+        return self.userName
