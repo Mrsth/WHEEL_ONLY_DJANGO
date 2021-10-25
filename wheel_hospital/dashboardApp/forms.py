@@ -1,9 +1,9 @@
 from django import forms
 from django.db import models
-from django.forms import ModelForm, fields, widgets
-from django.http import request
-from .models import bikeCompanyModel, bikeDisplay, bikeServiceRequestModel
-from django.contrib.auth.models import User
+from django.db.models import fields
+from django.forms import ModelForm
+from .models import bikeCompanyModel, bikeDisplay, bikeServiceRequestModel, feedBackFormModel
+
 
 class bikeRegForm(ModelForm):
     # bikeUser = forms.CharField(label="Bike user", widget=forms.TextInput(attrs={
@@ -25,7 +25,8 @@ class bikeRegForm(ModelForm):
         )
         # self.fields['bikeCompany'].queryset = bikeCompanyModel.objects.all()
         self.fields['bikeCompany'] = forms.ModelChoiceField(queryset= bikeCompanyModel.objects.all(), label="Servicing available only for following company")
-        
+    
+  
     
     class Meta:
         model = bikeDisplay
@@ -73,13 +74,13 @@ class bikeReqUpdate(ModelForm):
     class Meta:
         model = bikeServiceRequestModel
         fields = [
-                    "serviceUser", "serviceCompany", "serviceModel",
+                    "serviceCompany", "serviceModel",
                     "serviceNumber", "serviceColor", "pickup", "delivery",
                     "kmcovered", "contact", "problem", "deliveryTime"
                  ]
 
         labels = {
-            "serviceUser": "Rider name",
+            # "serviceUser": "Rider name",
             "serviceCompany": "Rider's bike company",
             "serviceModel": "Rider's bike model",
             "serviceColor": "Bike color",
@@ -95,16 +96,22 @@ class bikeReqUpdate(ModelForm):
 class serviceRequestForm(ModelForm):
 
 
+    # def __init(self, *args, **kwargs):
+    #     super(EmployeeSoftwareForm, self).__init__(*args, **kwargs)
+    #     if 'instance' in kwargs:
+    #     self.fields['assets'].queryset = SoftwareAsset.objects.filter(company = kwargs['instance'].employee.company)
+  
+    
     class Meta:
         model = bikeServiceRequestModel
         fields = [
-                    "serviceUser", "serviceCompany", "serviceModel",
+                    "serviceCompany", "serviceModel",
                     "serviceNumber", "serviceColor", "pickup", "delivery",
                     "kmcovered", "contact", "problem", "deliveryTime"
                  ]
 
         labels = {
-            "serviceUser": "Rider name",
+            # "serviceUser": "Rider name",
             "serviceCompany": "Rider's bike company",
             "serviceModel": "Rider's bike model",
             "serviceColor": "Bike color",
@@ -114,7 +121,15 @@ class serviceRequestForm(ModelForm):
             "contact": "Rider's contact number",
             "problem": "Problems",
             "deliveryTime": "Customer's expected delivery time"
-        }   
+        }  
+
+class feedBackForm(ModelForm):
+    class Meta:
+        model = feedBackFormModel
+        fields = "__all__"
+
+
+
 
 
          

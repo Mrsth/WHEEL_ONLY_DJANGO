@@ -18,13 +18,14 @@
       {% include 'baseNavbar.html' %}
       <!------------------------------------------------------- NAVBAR ENDS HERE -------------------------------------------------------------------------->
 
-      <div class="container">
-        <h1>Bike update form</h1>
-        <div class="row">
+      <div class="container" style="margin-top: 5%; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+        <div class="row" style="padding-bottom: 3%; padding-top: 2%;">
+            <h1 style="text-align: center; margin-bottom: 3%;">Bike update form</h1>
             <div class="col">
-                <img src="{{info.bikeImage.url}}">
+                <img src="{{info.bikeImage.url}}" style="width: 100%; margin-top: 5%;">
+
             </div>
-            <div class="col">
+            <div class="col" style="margin-left: 5%;">
                 <form method="POST" action="" enctype="multipart/form-data">
                     {% csrf_token %}
                     <!-- {{filledForm | crispy}} -->

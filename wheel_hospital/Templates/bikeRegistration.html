@@ -19,14 +19,14 @@
       <!------------------------------------------------------- NAVBAR ENDS HERE -------------------------------------------------------------------------->
 
       <!------------------------------------------------------- BIKE REGISTRATION FORM STARTS HERE -------------------------------------------------------------------------->
-      <div class="row">
+      <div class="row" style="margin-top: 5%;">
         <div class="col">
             <img src="{% static 'images/register.jpg' %}" id="registerImage">
         </div>
         <div class="col">
-            <center>
+             <center>
                 <h1>BIKE REGISTRATION FORM</h1>
-            </center>  
+            </center> 
             <br>
             <form method="POST" action="" class="container" enctype="multipart/form-data">
               {% csrf_token %}

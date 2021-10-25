@@ -20,7 +20,7 @@
 
       <!------------------------------------------------------- BIKE REGISTRATION FORM STARTS HERE -------------------------------------------------------------------------->
       <div class="row">  
-    <center style="margin-top: 2%;">
+    <center style="margin-top: 5%;">
       <h1>STATUS OF BIKE IN SERVICING CENTER</h1>
     </center>   
       <h2>Table View</h2>   
@@ -33,7 +33,7 @@
             <th scope="col" style="font-size: small; text-align: center; word-break:break-all; width: 10%;" >Bike Company</th>
             <th scope="col" style="font-size: small; text-align: center; word-break:break-all; width: 10%;">Pickup Location</th>
             <th scope="col" style="font-size: small; text-align: center; word-break:break-all; width: 10%;" >Delivery Location</th>
-            <th scope="col" style="font-size: small; text-align: center; word-break:break-all; width: 10%;" >Distance Covered(in kilometers)</th>
+            <th scope="col" style="font-size: small; text-align: center; word-break:break-all; width: 10%;" >Distance Covered<br>(in kilometers)</th>
             <th scope="col" style="font-size: small; text-align: center; word-break:break-all; width: 10%;" >Contact Number</th>
             <th scope="col" style="font-size: small; text-align: center; word-break:break-all;" >Problem</th>
             <th scope="col" style="font-size: small; text-align: center; word-break:break-all;" >Status</th>
@@ -62,13 +62,28 @@
                     
 
                         
-                      {% if i.completed != "On going" %}
-                          <td>
+                      {% if i.completed == "Not Completed" %}
+                          <td style="word-break:break-all; font-size: small;">
                             <center>
                               <a class="btn btn-primary" style="font-size: small; margin-bottom: 5%;" type="button" href="/update/{{i.id}}">Update</a>
                               <a class="btn btn-danger" style="font-size: small;" type="button" href="/status/delete/{{i.id}}">Delete</a>
                             </center>
                           </td>
+                      {% elif i.completed == "Completed" %}    
+                          <td style="word-break:break-all; font-size: small;">
+                            <center>
+                              <img src="{% static 'images/tick.jpg' %}" style="width: 50%;"><br>
+                              Servicing <br>completed<br>
+                              <a class="btn btn-danger" style="font-size: small;" type="button" href="/status/delete/{{i.id}}">Delete</a>
+                            </center>
+                          </td>
+                      {% else %}
+                          <td style="word-break:break-all; font-size: small;">
+                            <center>
+                              <img src="{% static 'images/onGoing.jpg' %}" style="width: 50%;">
+                              <p>Servicing <br>On going</p>  
+                            </center>
+                          </td>   
                       {% endif %} 
                 {% endif %}
               {% endfor %}        
@@ -82,7 +97,7 @@
       {% for i in stat %}
           {% for x,y in num_img %}
             {% if x == i.serviceNumber %}
-              <div class="card" style="width: 20rem; margin-left: 2%; margin-bottom: 2%;">
+              <div class="card" style="width: 28rem; margin-left: 2%; margin-bottom: 2%; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); padding: 2%;">
                 <img class="card-img-top" src="{{y}}" alt="Card image cap">
                 <hr>
                 <div class="card-body">
@@ -98,8 +113,23 @@
                   <p class="card-text"><b>Problems:</b> {{i.problem}}</p>
                   <hr>
                   <center>
-                    <a class="btn btn-primary" style="font-size: small;" type="button" href="/update/{{i.id}}">Update</a>
-                    <a class="btn btn-danger" style="font-size: small;" type="button" href="/status/delete/{{i.id}}">Delete</a>
+                    {% if i.completed == "Not Completed" %}
+                          <div style="word-break:break-all; font-size: small;">
+                            <center>
+                              <a class="btn btn-primary" style="font-size: small;" type="button" href="/update/{{i.id}}">Update</a>
+                              <a class="btn btn-danger" style="font-size: small;" type="button" href="/status/delete/{{i.id}}">Delete</a>
+                            </center>
+                          </div>
+                      {% elif i.completed == "Completed" %}    
+                          <div style="word-break:break-all; font-size: small; background-color:green;">
+                            <b style="color: white;">SERVICING COMPLETED</b>
+                          </div><br>
+                          <a class="btn btn-danger" style="font-size: small;" type="button" href="/status/delete/{{i.id}}">Delete</a>
+                      {% else %}
+                          <div style="word-break:break-all; font-size: small; background-color:yellow;">
+                            <b style="color: black">THEY ARE SERVICING YOUR BIKE</b>
+                          </div>   
+                      {% endif %} 
                   </center>
                 </div>
               </div>

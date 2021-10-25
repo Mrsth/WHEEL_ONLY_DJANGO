@@ -1,11 +1,9 @@
-from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
-from django.contrib.auth.models import User
 
 # IMPORTS FOR DASHBOARD
 from django.contrib.auth.decorators import login_required
-from .models import bikeCompanyModel, bikeDisplay, bikeServiceRequestModel, userBikeModel
-from .forms import bikeRegForm, bikeReqUpdate, serviceRequestForm
+from .models import bikeDisplay, bikeServiceRequestModel, feedBackFormModel
+from .forms import bikeRegForm, bikeReqUpdate, serviceRequestForm, feedBackForm
 from django.contrib.auth.forms import PasswordChangeForm
 
 # Create your views here.
@@ -16,7 +14,8 @@ def dashboardView(request):
     
     context = {
         'bikes': bikes,
-        'flag': buttonShowOrNot
+        'flag': buttonShowOrNot,
+        'bikeCount': len(bikes)
     }
     return render(request, 'dashboard.html',context)
 
@@ -76,12 +75,9 @@ def bikeStatus(request, name):
     for i in stat:
         number = list(bikeDisplay.objects.filter(bikeNumber=i.serviceNumber).values_list('bikeNumber', flat=True))
         img = list(bikeDisplay.objects.filter(bikeNumber=i.serviceNumber).values_list('bikeImage', flat=True))
-        print("NUMBER RELATED IMAGES = ", num_img.append((number[0],"/media/"+img[0])))
+        num_img.append((number[0],"/media/"+img[0]))
+        # print("NUMBER RELATED IMAGES = ", num_img.append((number[0],"/media/"+img[0])))
         
-      
-    
-
-
     context={
         'stat':stat,
         'count': len(forCountingRegisteredBikes),
@@ -115,9 +111,11 @@ def requestUpdate(request, pk):
 
     if request.method == 'POST':
         reqFilledForm = bikeReqUpdate(request.POST, request.FILES, instance=updateReqModel)
-        print("REQUEST.POST = ", request.POST)
+        # print("REQUEST.POST = ", request.POST)
         if reqFilledForm.is_valid():
-            reqFilledForm.save()
+            instance = reqFilledForm.save(commit=False)
+            instance.serviceUser = request.user
+            instance.save()
             return redirect('/status/{pk}')
         else:
             return render(request, 'errorPage.html')
@@ -149,10 +147,10 @@ def give_it_to_service(request,pk):
     onlySelectedBikeRecord = bikeDisplay.objects.get(id=pk)
 
     values = bikeDisplay.objects.filter(id=pk)
-    print("values = ", values[0].bikeUser)
+    # print("values = ", values[0].bikeUser)
 
     initial = {
-                "serviceUser": request.user,
+                # "serviceUser": request.user,
                 "serviceCompany": values[0].bikeCompany,
                 "serviceModel":values[0].bikeModel,
                 "serviceNumber":values[0].bikeNumber,
@@ -165,11 +163,13 @@ def give_it_to_service(request,pk):
     if request.method == 'POST':
         fm = serviceRequestForm(request.POST, request.FILES)
         if fm.is_valid():
-            fm.save()
+            instance = fm.save(commit=False)
+            instance.serviceUser = request.user
+            instance.save()
             fm = serviceRequestForm()
             return redirect('/status/{{request.user}}')
-        else:
-            return HttpResponse("Not valid form")        
+        # else:
+        #     return HttpResponse("Not valid form")        
 
 
     context={
@@ -181,3 +181,20 @@ def give_it_to_service(request,pk):
     return render(request, 'newReqForm.html', context)
 
     
+
+def aboutUsView(request):
+    feedBacks = feedBackFormModel.objects.all()
+    fm = feedBackForm()
+
+    if request.method == "POST":
+        fm = feedBackForm(request.POST)
+        if fm.is_valid():
+            fm.save()
+            fm = feedBackForm()
+
+
+    context = {
+        'feedBacks': feedBacks,
+        'fm': fm
+    }
+    return render(request, 'aboutUs.html', context=context)    
