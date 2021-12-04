@@ -117,8 +117,8 @@ def requestUpdate(request, pk):
             instance.serviceUser = request.user
             instance.save()
             return redirect('/status/{pk}')
-        else:
-            return render(request, 'errorPage.html')
+        # else:
+        #     return redirect('/error')
 
     context = {
             'reqFilledForm': reqFilledForm,
@@ -198,3 +198,9 @@ def aboutUsView(request):
         'fm': fm
     }
     return render(request, 'aboutUs.html', context=context)    
+
+
+def error_page(request):
+    return render(request, 'errorPage.html')  
+
+    

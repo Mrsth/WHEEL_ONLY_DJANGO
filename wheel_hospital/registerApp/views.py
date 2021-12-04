@@ -18,7 +18,9 @@ def registerPageView(request):
         if rForm.is_valid():
             rForm.save()
             messages.success(request, 'Account created successfully = ' + rForm.cleaned_data.get('username'))
-            return redirect('login')
+            # return redirect('login')
+            rForm = CreateUserForm()
+            return redirect('reg')
 
     context = {
         'registerForm': rForm

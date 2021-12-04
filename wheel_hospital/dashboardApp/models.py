@@ -3,6 +3,7 @@ from django.core.exceptions import ValidationError
 from datetime import datetime
 from django.contrib.auth.models import User
 from django.utils import timezone
+from django.core.validators import RegexValidator
 
 # Create your models here.
 class bikeCompanyModel(models.Model):
@@ -34,6 +35,12 @@ class bikeDisplay(models.Model):
 
 class bikeServiceRequestModel(models.Model):
 
+    service_status = (
+        ('Completed', 'Completed'),
+        ('Not Completed', 'Not Completed'),
+        ('On Going', 'On Going'),
+    )
+
     def validate_date(value):
         if value==datetime.now().date():
             pass
@@ -41,6 +48,8 @@ class bikeServiceRequestModel(models.Model):
             raise ValidationError("Don't input future date")  
         elif value<datetime.now().date():
             raise ValidationError('Don\'t input past date') 
+
+    phone_regx =  RegexValidator(r'^[9]\d{9}$', 'Please enter valid phone number')       
 
     # serviceUser = models.CharField(max_length=50)
     # serviceCompany = models.CharField(max_length=50)
@@ -53,10 +62,10 @@ class bikeServiceRequestModel(models.Model):
 
     pickup = models.CharField(max_length=50)
     delivery = models.CharField(max_length=50)
-    kmcovered = models.CharField(max_length=50)
-    contact = models.CharField(max_length=10)
+    kmcovered = models.IntegerField()
+    contact = models.CharField(max_length=10, validators=[phone_regx])
     problem = models.TextField()
-    completed = models.CharField(max_length=100, default="Not Completed")
+    completed = models.CharField(max_length=100, default="Not Completed", choices = service_status)
     serviceDate = models.DateField(validators=[validate_date], default=timezone.now) 
     serviceTime = models.TimeField(auto_now=True)
     deliveryTime = models.TimeField()

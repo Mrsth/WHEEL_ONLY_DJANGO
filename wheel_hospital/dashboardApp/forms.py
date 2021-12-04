@@ -1,9 +1,10 @@
 from django import forms
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models import fields
 from django.forms import ModelForm
 from .models import bikeCompanyModel, bikeDisplay, bikeServiceRequestModel, feedBackFormModel
-
+import re
 
 class bikeRegForm(ModelForm):
     # bikeUser = forms.CharField(label="Bike user", widget=forms.TextInput(attrs={
@@ -92,6 +93,8 @@ class bikeReqUpdate(ModelForm):
             "deliveryTime": "Customer's expected delivery time"
         }   
 
+
+
  
 class serviceRequestForm(ModelForm):
 
@@ -100,7 +103,7 @@ class serviceRequestForm(ModelForm):
     #     super(EmployeeSoftwareForm, self).__init__(*args, **kwargs)
     #     if 'instance' in kwargs:
     #     self.fields['assets'].queryset = SoftwareAsset.objects.filter(company = kwargs['instance'].employee.company)
-  
+
     
     class Meta:
         model = bikeServiceRequestModel
@@ -122,6 +125,12 @@ class serviceRequestForm(ModelForm):
             "problem": "Problems",
             "deliveryTime": "Customer's expected delivery time"
         }  
+
+        error_messages = {
+            'contact':{'invalid':'Incorrect Phone Number'},
+            'deliveryTime':{'invalid': 'Incorrect Time'}
+        }
+
 
 class feedBackForm(ModelForm):
     class Meta:

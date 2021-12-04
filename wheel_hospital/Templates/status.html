@@ -26,15 +26,15 @@
       <h2>Table View</h2>   
       <table class="table table-bordered" style="margin-top: 2%; margin-bottom: 5%;width:100%; table-layout: fixed;">
           <tr>
-            <th scope="col" style="font-size: small; text-align: center; word-break:break-all;" >Service User</th>
-            <th scope="col" style="font-size: small; text-align: center; word-break:break-all;" >Bike Color</th>
-            <th scope="col" style="font-size: small; text-align: center; word-break:break-all;" >Bike Number</th>
-            <th scope="col" style="font-size: small; text-align: center; word-break:break-all;" >Bike model</th>
-            <th scope="col" style="font-size: small; text-align: center; word-break:break-all; width: 10%;" >Bike Company</th>
-            <th scope="col" style="font-size: small; text-align: center; word-break:break-all; width: 10%;">Pickup Location</th>
-            <th scope="col" style="font-size: small; text-align: center; word-break:break-all; width: 10%;" >Delivery Location</th>
-            <th scope="col" style="font-size: small; text-align: center; word-break:break-all; width: 10%;" >Distance Covered<br>(in kilometers)</th>
-            <th scope="col" style="font-size: small; text-align: center; word-break:break-all; width: 10%;" >Contact Number</th>
+            <th scope="col" style="font-size: small; text-align: center; word-break:break-all; " >Service User</th>
+            <th scope="col" style="font-size: small; text-align: center; word-break:break-all; width: 8%;" >Bike Color</th>
+            <th scope="col" style="font-size: small; text-align: center; word-break:break-all; width: 8%;" >Bike Number</th>
+            <th scope="col" style="font-size: small; text-align: center; word-break:break-all; width: 8%;" >Bike model</th>
+            <th scope="col" style="font-size: small; text-align: center; word-break:break-all; width: 8%;" >Bike Company</th>
+            <th scope="col" style="font-size: small; text-align: center; word-break:break-all; width: 8%;">Pickup Location</th>
+            <th scope="col" style="font-size: small; text-align: center; word-break:break-all; width: 9%;" >Delivery Location</th>
+            <th scope="col" style="font-size: small; text-align: center; word-break:break-all; width: 9%;" >Distance Covered<br>(in kilometers)</th>
+            <th scope="col" style="font-size: small; text-align: center; word-break:break-all; width: 8%;" >Contact Number</th>
             <th scope="col" style="font-size: small; text-align: center; word-break:break-all;" >Problem</th>
             <th scope="col" style="font-size: small; text-align: center; word-break:break-all;" >Status</th>
           </tr>
@@ -45,7 +45,7 @@
             <tr>    
               {% for x,y in num_img %}
                 {% if x == i.serviceNumber %}
-                        <td style="word-break:break-all; font-size: small;">
+                        <td style="font-size: small; word-break:break-all;">
                           <center>{{i.serviceUser}}</center>
                           <img class="card-img-top" src="{{y}}" alt="Card image cap">
                         </td>

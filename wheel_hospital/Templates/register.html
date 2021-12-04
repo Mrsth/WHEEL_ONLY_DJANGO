@@ -35,6 +35,14 @@
         <div class="row">
             <div class="col">
                 <img src="{% static 'images/register.jpg' %}" id="registerImage">
+                {% for message in messages %}
+                <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                  <p id="messages">{{message}}</p>
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              {% endfor %}
             </div>
             <div class="col">
                 <h1>Registration form</h1>
@@ -61,8 +69,6 @@
                     </form>
 
                     <!-- {{registerForm.errors}} -->
-
-
 
                     <!-- Optional JavaScript -->
                     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
