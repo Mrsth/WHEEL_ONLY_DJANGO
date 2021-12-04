@@ -29,7 +29,7 @@
             {% csrf_token %}
             <p>User ID: {{pk}}</p>
             {% for i in reqFilledForm %}
-                <p>{{i | as_crispy_field}}</p>
+                <p>{{i | as_crispy_field}}{{fm.errors}}</p>
             {% endfor %}
             
             

@@ -46,6 +46,7 @@
                   <!-- {% for i in fm %}
                       {{i | as_crispy_field}}<br>
                   {% endfor %} -->
+ 
                   {{fm.serviceUser.label}}{{fm.serviceUser}}<br>
                   {{fm.serviceCompany.label}}{{fm.serviceCompany}}<br>
                   {{fm.serviceModel.label}}{{fm.serviceModel}}<br>
@@ -54,11 +55,11 @@
                   {{fm.pickup.label}}{{fm.pickup}}<br>
                   {{fm.delivery.label}}{{fm.delivery}}<br>
                   {{fm.kmcovered.label}}{{fm.kmcovered}}<br>
-                  {{fm.contact.label}}{{fm.contact}}<br>
+                  {{fm.contact.label}}{{fm.contact}}<li style="color:red; list-style-type: none;">{{fm.errors.contact}}</li><br>
                   {{fm.problem.label}}{{fm.problem}}<br>
                   {{fm.completed.label}}{{fm.completed}}<br>
                   {{fm.serviceDate.label}}{{fm.serviceDate}}<br>
-                  {{fm.deliveryTime.label}}{{fm.deliveryTime}}<br>
+                  {{fm.deliveryTime.label}}{{fm.deliveryTime}}<li style="color:red; list-style-type: none;">{{fm.errors.deliveryTime}}</li><br>
 
 
 

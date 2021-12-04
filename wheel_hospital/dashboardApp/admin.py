@@ -21,3 +21,5 @@ class feedBackFormAdmin(admin.ModelAdmin):
 # admin.site.register(bikeServiceRequestModel)
 admin.site.register(bikeCompanyModel)
 admin.site.register(userBikeModel)
+
+admin.site.site_header = "Wheeler's Hospital Admin Panel"
